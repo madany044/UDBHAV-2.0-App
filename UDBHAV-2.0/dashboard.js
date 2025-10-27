@@ -1,7 +1,7 @@
-
-
 let currentApplication = null;
 let applicationStep = 1;
+let whatsappLink = "https://chat.whatsapp.com/Bti5yTtC81KBmMY6mHgXiX?mode=ems_wa_t";
+let applicationData = {}; // Store form data locally until final submission
 
 // Wait for DOM to load
 document.addEventListener('DOMContentLoaded', function () {
@@ -52,22 +52,22 @@ function initializeDashboard() {
 }
 
 function setupDashboardEventListeners() {
-    // Registration form
+    // Registration form - now handles next step instead of submission
     const registrationForm = document.getElementById('registration-form-element');
     if (registrationForm) {
-        registrationForm.addEventListener('submit', handleRegistrationSubmit);
+        registrationForm.addEventListener('submit', handleRegistrationNext);
     }
 
-    // Payment done button
+    // Payment done button - now handles next step
     const paymentDoneBtn = document.getElementById('payment-done-btn');
     if (paymentDoneBtn) {
-        paymentDoneBtn.addEventListener('click', handlePaymentDone);
+        paymentDoneBtn.addEventListener('click', handlePaymentNext);
     }
 
-    // Payment details form
+    // Payment details form - final submission
     const paymentDetailsForm = document.getElementById('payment-details-form');
     if (paymentDetailsForm) {
-        paymentDetailsForm.addEventListener('submit', handlePaymentDetailsSubmit);
+        paymentDetailsForm.addEventListener('submit', handleFinalSubmission);
     }
 
     // Edit team button
@@ -85,6 +85,147 @@ function setupDashboardEventListeners() {
             }
         });
     });
+
+    const whatsappBtn = document.getElementById('join-whatsapp-btn');
+    if (whatsappBtn) {
+        whatsappBtn.addEventListener('click', handleWhatsAppJoin);
+    }
+}
+
+// ✅ Handle Registration Next Step
+async function handleRegistrationNext(e) {
+    e.preventDefault();
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+
+    showButtonLoading(submitBtn, 'Validating...');
+
+    // Collect registration data
+    const formData = {
+        teamName: document.getElementById('team-name').value,
+        teamLeader: document.getElementById('team-leader').value,
+        member1: document.getElementById('member-1').value,
+        member2: document.getElementById('member-2').value,
+        member3: document.getElementById('member-3').value,
+        collegeName: document.getElementById('college-name').value,
+        email: document.getElementById('email').value,
+        contact: document.getElementById('contact').value,
+        alternateContact: document.getElementById('alternate-contact').value,
+        projectTitle: document.getElementById("projectTitle").value,
+        domain: document.getElementById("domain").value
+    };
+
+    // Basic validation
+    if (!formData.teamName || !formData.teamLeader || !formData.collegeName || !formData.email || !formData.contact) {
+        hideButtonLoading(submitBtn, 'Next Step');
+        showMessage('Please fill all required fields.', 'error');
+        return;
+    }
+
+    // Store data locally
+    applicationData = { ...applicationData, ...formData };
+
+    hideButtonLoading(submitBtn, 'Next Step');
+
+    // Move to next step
+    setTimeout(() => {
+        animateStepCompletion(1);
+        document.getElementById('registration-form').style.display = 'none';
+        document.getElementById('payment-section').style.display = 'block';
+        applicationStep = 2;
+    }, 500);
+}
+
+// ✅ Handle Payment Next Step
+function handlePaymentNext() {
+    // Store payment acknowledgment
+    applicationData.paymentAcknowledged = true;
+
+    // Move to next step
+    animateStepCompletion(2);
+
+    setTimeout(() => {
+        document.getElementById('payment-section').style.display = 'none';
+        document.getElementById('payment-details-section').style.display = 'block';
+        applicationStep = 3;
+    }, 500);
+}
+
+// ✅ Handle Final Submission
+// ✅ Handle Final Submission - With optional file upload
+async function handleFinalSubmission(e) {
+    e.preventDefault();
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+
+    showButtonLoading(submitBtn, 'Submitting...');
+    showLoadingOverlay('Submitting application...');
+
+    const paymentUserName = document.getElementById('payment-user-name').value;
+    const utrNumber = document.getElementById('utr-number').value;
+    const paymentScreenshot = document.getElementById('payment-screenshot').files[0];
+    const confirmationCheckbox = document.getElementById('confirmation-checkbox').checked;
+
+    // Validation - Make screenshot optional temporarily
+    if (!paymentUserName || !utrNumber || !confirmationCheckbox) {
+        hideButtonLoading(submitBtn, 'Final Submit');
+        hideLoadingOverlay();
+        showMessage('Please fill all required payment details and agree to the terms.', 'error');
+        return;
+    }
+
+    try {
+        // Temporarily disable file upload
+        let screenshotFileName = paymentScreenshot ? paymentScreenshot.name : 'No file uploaded';
+
+        // Prepare final application data
+        const finalApplicationData = {
+            userId: currentUser.uid,
+            userEmail: currentUser.email,
+            ...applicationData,
+            paymentUserName: paymentUserName,
+            utrNumber: utrNumber,
+            paymentScreenshot: screenshotFileName,
+            registrationCompleted: true,
+            paymentCompleted: true,
+            paymentDetailsCompleted: true,
+            status: 'pending',
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
+
+        // Save to Firestore
+        const docRef = await db.collection('users')
+            .doc(currentUser.uid)
+            .collection('applications')
+            .add(finalApplicationData);
+
+        currentApplication = { id: docRef.id, ...finalApplicationData };
+
+        hideButtonLoading(submitBtn, 'Final Submit');
+        hideLoadingOverlay();
+        showMessage('Application submitted successfully!', 'success');
+        animateStepCompletion(3);
+
+        setTimeout(() => {
+            document.getElementById('payment-details-section').style.display = 'none';
+            document.getElementById('already-registered').style.display = 'block';
+            sendConfirmationEmail();
+
+            // Update pipeline status and show status page
+            updatePipelineStatus();
+            setTimeout(() => showPage('status'), 2000);
+        }, 1000);
+    } catch (error) {
+        console.error('Error submitting application:', error);
+        hideButtonLoading(submitBtn, 'Final Submit');
+        hideLoadingOverlay();
+        showMessage('Error submitting application: ' + error.message, 'error');
+    }
+}
+
+// ✅ Upload payment screenshot to Firebase Storage
+async function uploadPaymentScreenshot(file) {
+    console.log('File upload temporarily disabled:', file.name);
+    return null; // Temporarily return null instead of uploading
 }
 
 // ✅ Setup logout button with smooth overlay
@@ -117,6 +258,72 @@ function handleLogout() {
             hideSmoothOverlay();
             showMessage('Logout failed: ' + error.message, 'error');
         });
+    }, 1000);
+}
+
+// ✅ Load WhatsApp link from Firestore
+async function loadWhatsAppLink() {
+    try {
+        const configDoc = await db.collection('config').doc('whatsapp').get();
+        if (configDoc.exists) {
+            const configData = configDoc.data();
+            whatsappLink = configData.groupLink || whatsappLink;
+            console.log('WhatsApp link loaded:', whatsappLink);
+
+            // Update button state if link is available
+            updateWhatsAppButtonState();
+        } else {
+            console.log('No WhatsApp config found, using default link');
+            updateWhatsAppButtonState();
+        }
+    } catch (error) {
+        console.error('Error loading WhatsApp link:', error);
+        // Use default link if there's an error
+        updateWhatsAppButtonState();
+    }
+}
+
+// ✅ Update WhatsApp button state based on link availability
+function updateWhatsAppButtonState() {
+    const whatsappBtn = document.getElementById('join-whatsapp-btn');
+    if (!whatsappBtn) return;
+
+    if (!whatsappLink || whatsappLink === "https://chat.whatsapp.com/Bti5yTtC81KBmMY6mHgXiX?mode=ems_wa_t") {
+        whatsappBtn.disabled = true;
+        whatsappBtn.title = "WhatsApp group link will be available soon";
+        whatsappBtn.style.opacity = "0.7";
+        whatsappBtn.style.cursor = "not-allowed";
+    } else {
+        whatsappBtn.disabled = false;
+        whatsappBtn.title = "Join our WhatsApp group for updates";
+        whatsappBtn.style.opacity = "1";
+        whatsappBtn.style.cursor = "pointer";
+    }
+}
+
+// ✅ Handle WhatsApp join
+function handleWhatsAppJoin() {
+    // Double-check that whatsappLink is defined
+    if (typeof whatsappLink === 'undefined') {
+        console.error('whatsappLink is not defined');
+        showMessage('WhatsApp feature is not available at the moment.', 'error');
+        return;
+    }
+
+    if (!whatsappLink || whatsappLink === "https://chat.whatsapp.com/YOUR_GROUP_LINK_HERE") {
+        showMessage('WhatsApp group link is not available yet. Please check back later.', 'info');
+        return;
+    }
+
+    // Show confirmation for WhatsApp
+    showSmoothOverlay('Opening WhatsApp group...', 'whatsapp');
+
+    setTimeout(() => {
+        window.open(whatsappLink, '_blank');
+        hideSmoothOverlay();
+
+        // Show success message
+        showMessage('WhatsApp group opened in new tab!', 'success');
     }, 1000);
 }
 
@@ -291,6 +498,9 @@ async function loadUserData() {
             loadStatus();
         } else {
             document.getElementById('registration-form').style.display = 'block';
+            // Reset application data for new registration
+            applicationData = {};
+            applicationStep = 1;
         }
     } catch (error) {
         console.error('Error loading user data:', error);
@@ -333,152 +543,6 @@ function updatePipelineStatus() {
     if (progressLine) {
         const progressWidth = (completedSteps / 3) * 80; // 80% of the line width
         progressLine.style.width = `${progressWidth}%`;
-    }
-}
-
-// ✅ Handle Registration Submit
-async function handleRegistrationSubmit(e) {
-    e.preventDefault();
-    const submitBtn = e.target.querySelector('button[type="submit"]');
-
-    showButtonLoading(submitBtn, 'Submitting...');
-    showLoadingOverlay('Submitting registration...');
-
-    const formData = {
-        teamName: document.getElementById('team-name').value,
-        teamLeader: document.getElementById('team-leader').value,
-        member1: document.getElementById('member-1').value,
-        member2: document.getElementById('member-2').value,
-        member3: document.getElementById('member-3').value,
-        collegeName: document.getElementById('college-name').value,
-        email: document.getElementById('email').value,
-        contact: document.getElementById('contact').value,
-        alternateContact: document.getElementById('alternate-contact').value,
-        projectIdea: null
-    };
-
-    try {
-        const applicationData = {
-            userId: currentUser.uid,
-            userEmail: currentUser.email,
-            ...formData,
-            registrationCompleted: true,
-            paymentCompleted: false,
-            paymentDetailsCompleted: false,
-            status: 'pending',
-            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-        };
-
-        const docRef = await db.collection('users')
-            .doc(currentUser.uid)
-            .collection('applications')
-            .add(applicationData);
-
-        currentApplication = { id: docRef.id, ...applicationData };
-
-        hideButtonLoading(submitBtn, 'Submit Registration');
-        hideLoadingOverlay();
-        showMessage('Registration submitted successfully!', 'success');
-
-        setTimeout(() => {
-            animateStepCompletion(1);
-            document.getElementById('registration-form').style.display = 'none';
-            document.getElementById('payment-section').style.display = 'block';
-            applicationStep = 2;
-        }, 1000);
-    } catch (error) {
-        console.error('Error submitting registration:', error);
-        hideButtonLoading(submitBtn, 'Submit Registration');
-        hideLoadingOverlay();
-        showMessage('Error submitting registration: ' + error.message, 'error');
-    }
-}
-
-function handlePaymentDone() {
-    if (!currentApplication) {
-        showMessage('Please complete registration first.', 'error');
-        return;
-    }
-
-    showLoadingOverlay('Updating payment status...');
-
-    // Update payment status in database
-    db.collection('users')
-        .doc(currentUser.uid)
-        .collection('applications')
-        .doc(currentApplication.id)
-        .update({
-            paymentCompleted: true,
-            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-        })
-        .then(() => {
-            hideLoadingOverlay();
-
-            // Update local application data
-            currentApplication.paymentCompleted = true;
-
-            // Animate pipeline progression
-            animateStepCompletion(2);
-
-            // Move to payment details step
-            setTimeout(() => {
-                document.getElementById('payment-section').style.display = 'none';
-                document.getElementById('payment-details-section').style.display = 'block';
-                applicationStep = 3;
-                updatePipelineStatus();
-            }, 1000);
-        })
-        .catch((error) => {
-            hideLoadingOverlay();
-            console.error('Error updating payment status:', error);
-            showMessage('Error updating payment status: ' + error.message, 'error');
-        });
-}
-
-// ✅ Update payment details
-async function handlePaymentDetailsSubmit(e) {
-    e.preventDefault();
-    const submitBtn = e.target.querySelector('button[type="submit"]');
-
-    showButtonLoading(submitBtn, 'Submitting...');
-    showLoadingOverlay('Submitting payment details...');
-
-    const paymentUserName = document.getElementById('payment-user-name').value;
-    const utrNumber = document.getElementById('utr-number').value;
-    const paymentScreenshot = document.getElementById('payment-screenshot').files[0];
-    const confirmationCheckbox = document.getElementById('confirmation-checkbox').checked;
-
-    try {
-        await db.collection('users')
-            .doc(currentUser.uid)
-            .collection('applications')
-            .doc(currentApplication.id)
-            .update({
-                paymentUserName: paymentUserName,
-                utrNumber: utrNumber,
-                paymentScreenshot: paymentScreenshot.name,
-                paymentDetailsCompleted: true,
-                status: 'pending',
-                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-            });
-
-        hideButtonLoading(submitBtn, 'Final Submit');
-        hideLoadingOverlay();
-        showMessage('Application submitted successfully!', 'success');
-        animateStepCompletion(3);
-
-        setTimeout(() => {
-            document.getElementById('payment-details-section').style.display = 'none';
-            document.getElementById('already-registered').style.display = 'block';
-            sendConfirmationEmail();
-            setTimeout(() => showPage('status'), 2000);
-        }, 1000);
-    } catch (error) {
-        console.error('Error submitting payment details:', error);
-        hideButtonLoading(submitBtn, 'Final Submit');
-        hideLoadingOverlay();
-        showMessage('Error submitting payment details: ' + error.message, 'error');
     }
 }
 
@@ -761,4 +825,31 @@ function showMessage(message, type) {
             messageDiv.remove();
         }
     }, 5000);
+}
+
+// Utility functions for loading states
+function showButtonLoading(button, loadingText = 'Loading...') {
+    button.disabled = true;
+    button.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${loadingText}`;
+}
+
+function hideButtonLoading(button, originalText) {
+    button.disabled = false;
+    button.innerHTML = originalText;
+}
+
+function showLoadingOverlay(text = 'Loading...') {
+    const overlay = document.getElementById('loading-overlay');
+    const loadingText = document.getElementById('loading-text');
+    if (overlay && loadingText) {
+        loadingText.textContent = text;
+        overlay.style.display = 'flex';
+    }
+}
+
+function hideLoadingOverlay() {
+    const overlay = document.getElementById('loading-overlay');
+    if (overlay) {
+        overlay.style.display = 'none';
+    }
 }

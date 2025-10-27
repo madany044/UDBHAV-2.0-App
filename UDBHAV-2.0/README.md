@@ -76,23 +76,29 @@ service cloud.firestore {
     match /users/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
-    
+
     // Applications - users can read/write their own, admins can read all
     match /applications/{applicationId} {
-      allow read, write: if request.auth != null && 
-        (resource.data.userId == request.auth.uid || 
+      allow read, write: if request.auth != null &&
+        (resource.data.userId == request.auth.uid ||
          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin');
     }
-    
+
     // Contact messages - authenticated users can write, admins can read
     match /contact/{messageId} {
       allow write: if request.auth != null;
-      allow read: if request.auth != null && 
+      allow read: if request.auth != null &&
         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
     }
   }
 }
 ```
+
+
+sqfu ohip uhvv xzqs
+
+
+
 
 ### 3. Admin User Setup
 
