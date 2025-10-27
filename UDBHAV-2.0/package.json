@@ -1,0 +1,26 @@
+{
+  "name": "udbhav-2.0",
+  "version": "1.0.0",
+  "description": "UDBHAV-2.0 Project Expo - Event Registration System",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 3000",
+    "build": "echo 'No build process needed for static site'",
+    "deploy": "netlify deploy --prod"
+  },
+  "keywords": [
+    "event",
+    "registration",
+    "project-expo",
+    "firebase",
+    "responsive"
+  ],
+  "author": "Mysuru Royal Institute of Technology",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "dependencies": {
+    "firebase": "^9.22.0"
+  }
+}

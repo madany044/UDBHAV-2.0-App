@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | UDBHAV-2.0</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/img/udbhav-logo2.jpg" alt="UDBHAV Logo" class="logo-img">
+                <span class="logo-text">UDBHAV-2.0</span>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <div class="nav-user" id="nav-user">
+                    <span class="user-name" id="user-name"></span>
+                    <button class="btn-logout" id="logout-btn">Logout</button>
+                </div>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Navigation -->
+    <div class="dashboard-nav">
+        <div class="dashboard-nav-content">
+            <a href="#application" class="dashboard-nav-link active" data-page="application">
+                <i class="fas fa-file-alt"></i>
+                <span>Application</span>
+            </a>
+            <a href="#team-details" class="dashboard-nav-link" data-page="team-details">
+                <i class="fas fa-users"></i>
+                <span>Team Details</span>
+            </a>
+            <a href="#status" class="dashboard-nav-link" data-page="status">
+                <i class="fas fa-info-circle"></i>
+                <span>Status</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard">
+        <div class="dashboard-content">
+            <!-- Application Page -->
+            <div id="application-page" class="page active">
+                <h1 class="page-title">Application Process</h1>
+
+                <!-- Pipeline -->
+                <div class="pipeline" id="application-pipeline">
+                    <div class="pipeline-progress" id="pipeline-progress"></div>
+                    <div class="pipeline-step" id="step-1" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Registration Details</h3>
+                            <p>Fill in your team information</p>
+                        </div>
+                    </div>
+                    <div class="pipeline-step" id="step-2" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Payment</h3>
+                            <p>Complete payment process</p>
+                        </div>
+                    </div>
+                    <div class="pipeline-step" id="step-3" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Payment Details</h3>
+                            <p>Submit payment confirmation</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registration Form -->
+                <div class="form-section" id="registration-form">
+                    <h2>Registration Details</h2>
+                    <form id="registration-form-element">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="team-name">Team Name *</label>
+                                <input type="text" id="team-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="team-leader">Team Leader Name *</label>
+                                <input type="text" id="team-leader" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="member-1">Team Member 1</label>
+                                <input type="text" id="member-1">
+                            </div>
+                            <div class="form-group">
+                                <label for="member-2">Team Member 2</label>
+                                <input type="text" id="member-2">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="member-3">Team Member 3</label>
+                                <input type="text" id="member-3">
+                            </div>
+                            <div class="form-group">
+                                <label for="college-name">College Name *</label>
+                                <input type="text" id="college-name" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email ID *</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact">Contact Number *</label>
+                                <input type="tel" id="contact" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="alternate-contact">Alternate Contact Number</label>
+                                <input type="tel" id="alternate-contact">
+                            </div>
+                            <div class="form-group">
+                                <label for="project-idea">Upload Project Idea (Optional)</label>
+                                <div class="file-upload">
+                                    <input type="file" id="project-idea" accept=".pdf,.doc,.docx,.ppt,.pptx">
+                                    <label for="project-idea" class="file-upload-label">
+                                        <i class="fas fa-upload"></i> Choose File (Max 2MB)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary">Submit Registration</button>
+                    </form>
+                </div>
+
+                <!-- Payment Section -->
+                <div class="form-section" id="payment-section" style="display: none;">
+                    <h2>Payment</h2>
+                    <div class="payment-info">
+                        <div class="payment-amount">
+                            <h3>Registration Fee: ₹500</h3>
+                        </div>
+                        <div class="payment-qr">
+                            <img src="assets/img/QR.png" alt="Payment QR Code">
+                            <p>Scan QR code to make payment</p>
+                        </div>
+                        <div class="payment-account">
+                            <h4>Account Details:</h4>
+                            <p><strong>Account Name:</strong> MRIT UDBHAV-2.0</p>
+                            <p><strong>Account Number:</strong> 1234567890</p>
+                            <p><strong>IFSC Code:</strong> SBIN0001234</p>
+                            <p><strong>Bank:</strong> State Bank of India</p>
+                        </div>
+                        <button class="btn-primary" id="payment-done-btn">Payment Done</button>
+                    </div>
+                </div>
+
+                <!-- Payment Details Section -->
+                <div class="form-section" id="payment-details-section" style="display: none;">
+                    <h2>Payment Details</h2>
+                    <form id="payment-details-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="payment-user-name">Payment User Name *</label>
+                                <input type="text" id="payment-user-name" required placeholder="Enter name used for payment">
+                            </div>
+                            <div class="form-group">
+                                <label for="utr-number">UTR Number *</label>
+                                <input type="text" id="utr-number" required placeholder="Enter UTR/Transaction ID">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="payment-screenshot">Payment Screenshot *</label>
+                                <div class="file-upload">
+                                    <input type="file" id="payment-screenshot" accept="image/*" required>
+                                    <label for="payment-screenshot" class="file-upload-label">
+                                        <i class="fas fa-camera"></i> Upload Screenshot
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="confirmation-checkbox" required>
+                                <span class="checkmark"></span>
+                                I agree that all the above details are valid
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-primary" id="final-submit-btn">Final Submit</button>
+                    </form>
+                </div>
+
+                <!-- Already Registered Message -->
+                <div id="already-registered" style="display: none;">
+                    <div class="status-card already-registered-card">
+                        <div class="status-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="status-content">
+                            <div class="status-title">You have already registered.</div>
+                            <div class="status-message">Your application is being processed.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Details Page -->
+            <div id="team-details-page" class="page" style="display: none;">
+                <h1 class="page-title">Team Details</h1>
+                <div class="team-card" id="team-details-card">
+                    <div class="team-info" id="team-info-content">
+                        <!-- Team details will be loaded here -->
+                    </div>
+                    <button class="btn-primary" id="edit-team-btn" style="display: none;">Edit Team Name</button>
+                </div>
+            </div>
+
+
+
+
+            <!-- Status Page -->
+            <div id="status-page" class="page" style="display: none;">
+                <h1 class="page-title">Application Status</h1>
+                <div class="status-card" id="status-card">
+                    <div class="status-icon" id="status-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="status-content">
+                        <div class="status-title" id="status-title">Pending</div>
+                        <div class="status-message" id="status-message">Your application is under review.</div>
+                        <div id="rejection-reason" style="display: none;">
+                            <h4>Reason for Rejection:</h4>
+                            <p id="rejection-text"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Help Desk -->
+                <div class="help-desk">
+                    <h3>Help Desk</h3>
+                    <p>If you have any questions or need assistance, please contact us:</p>
+                    <p><strong>Email:</strong> <a href="mailto:udbhav@mrit.edu.in">udbhav@mrit.edu.in</a></p>
+                    <p><strong>Phone:</strong> <a href="tel:+919876543210">+91 9876543210</a></p>
+                    <p><strong>WhatsApp:</strong> <a href="https://wa.me/919876543210">+91 9876543210</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text" id="loading-text">Loading...</div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
+    <script src="script.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
+
