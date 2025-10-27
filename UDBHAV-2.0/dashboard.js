@@ -101,17 +101,18 @@ async function handleRegistrationNext(e) {
 
     // Collect registration data
     const formData = {
-        teamName: document.getElementById('team-name').value,
-        teamLeader: document.getElementById('team-leader').value,
-        member1: document.getElementById('member-1').value,
-        member2: document.getElementById('member-2').value,
-        member3: document.getElementById('member-3').value,
-        collegeName: document.getElementById('college-name').value,
-        email: document.getElementById('email').value,
-        contact: document.getElementById('contact').value,
-        alternateContact: document.getElementById('alternate-contact').value,
-        projectTitle: document.getElementById("projectTitle").value,
-        domain: document.getElementById("domain").value
+        teamName: document.getElementById('team-name') ? document.getElementById('team-name').value : '',
+teamLeader: document.getElementById('team-leader') ? document.getElementById('team-leader').value : '',
+member1: document.getElementById('member-1') ? document.getElementById('member-1').value : '',
+member2: document.getElementById('member-2') ? document.getElementById('member-2').value : '',
+member3: document.getElementById('member-3') ? document.getElementById('member-3').value : '',
+collegeName: document.getElementById('college-name') ? document.getElementById('college-name').value : '',
+email: document.getElementById('email') ? document.getElementById('email').value : '',
+contact: document.getElementById('contact') ? document.getElementById('contact').value : '',
+alternateContact: document.getElementById('alternate-contact') ? document.getElementById('alternate-contact').value : '',
+projectTitle: document.getElementById("projectTitle") ? document.getElementById("projectTitle").value : '',
+domain: document.getElementById("domain") ? document.getElementById("domain").value : ''
+
     };
 
     // Basic validation
@@ -829,13 +830,15 @@ function showMessage(message, type) {
 
 // Utility functions for loading states
 function showButtonLoading(button, loadingText = 'Loading...') {
-    button.disabled = true;
-    button.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${loadingText}`;
+    if (button) { button.disabled = true; }
+    if (button) { button.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${loadingText}`; }
+
 }
 
 function hideButtonLoading(button, originalText) {
-    button.disabled = false;
-    button.innerHTML = originalText;
+    if (button) { button.disabled = false; }
+    if (button) { button.innerHTML = originalText; }
+
 }
 
 function showLoadingOverlay(text = 'Loading...') {

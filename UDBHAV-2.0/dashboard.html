@@ -151,31 +151,30 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn-primary">NEXT</button>
+                        <button id="nextButton" type="submit" class="btn-primary">NEXT</button>
                     </form>
                 </div>
 
                 <!-- Payment Section -->
                 <div class="form-section" id="payment-section" style="display: none;">
-                    <h2>Payment</h2>
-                    <div class="payment-info">
-                        <div class="payment-amount">
-                            <h3>Registration Fee: ₹500</h3>
-                        </div>
-                        <div class="payment-qr">
-                            <img src="assets/img/QR.png" alt="Payment QR Code">
-                            <p>Scan QR code to make payment</p>
-                        </div>
-                        <div class="payment-account">
-                            <h4>Account Details:</h4>
-                            <p><strong>Account Name:</strong> MYSURU ROYAL INSTITUTE OF TECHNOLOGY </p>
-                            <p><strong>Account Number:</strong> 459905000226</p>
-                            <p><strong>IFSC Code:</strong>ICIC0004599</p>
-                            <p><strong>Bank:</strong> ICICI , N R Mohalla , Mysore</p>
-                        </div>
-                        <button class="btn-primary" id="payment-done-btn">NEXT</button>
-                    </div>
-                </div>
+  <h2>Payment</h2>
+  <div class="payment-info">
+    <div class="payment-amount">
+      <h3>Registration Fee: <span class="highlight">₹200</span></h3>
+    </div>
+    <div class="payment-account">
+      <h4>Account Details</h4>
+      <ul class="account-details-list">
+        <li><strong>Account Name:</strong> MYSURU ROYAL INSTITUTE OF TECHNOLOGY</li>
+        <li><strong>Account Number:</strong> 459905000226</li>
+        <li><strong>IFSC Code:</strong> ICIC0004599</li>
+        <li><strong>Bank:</strong> ICICI, N R Mohalla, Mysore</li>
+      </ul>
+    </div>
+    <button class="btn-primary payment-next-btn" id="payment-done-btn">Next &rarr;</button>
+  </div>
+</div>
+
 
                 <!-- Payment Details Section -->
                 <div class="form-section" id="payment-details-section" style="display: none;">

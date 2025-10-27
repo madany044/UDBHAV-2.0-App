@@ -1347,3 +1347,53 @@ section {
     color: #3b82f6;
     border: 1px solid #3b82f6;
 }
+
+.payment-info {
+  background: #f9f9ff;
+  border-radius: 10px;
+  padding: 30px 20px;
+  box-shadow: 0 3px 14px rgba(100, 116, 139, 0.09);
+  max-width: 430px;
+  margin: 0 auto;
+}
+
+.payment-amount h3 {
+  margin-bottom: 16px;
+  font-size: 1.1rem;
+  color: #32325d;
+}
+
+.payment-amount .highlight {
+  color: #2d84fb;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.account-details-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px 0;
+}
+
+.account-details-list li {
+  padding: 4px 0;
+  font-size: 1rem;
+  color: #4a5568;
+}
+
+.payment-next-btn {
+  width: 100%;
+  padding: 12px 0;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  border: none;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.payment-next-btn:hover {
+  background: linear-gradient(90deg, #667eea 80%, #764ba2 100%);
+  opacity: 0.94;
+}
