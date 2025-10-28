@@ -9,108 +9,476 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <img src="assets/img/udbhav-logo2.jpg" alt="UDBHAV Logo" class="logo-img">
-                <span class="logo-text">UDBHAV-2.0</span>
-            </div>
-            <div class="nav-menu" id="nav-menu">
-                <a href="#home" class="nav-link">Home</a>
-                <a href="#rewards" class="nav-link">Rewards</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#contact" class="nav-link">Contact</a>
-                <div class="nav-auth" id="nav-auth">
-                    <button class="btn-login" id="login-btn">Login</button>
-                    <button class="btn-register" id="register-btn">Register</button>
-                </div>
-                <div class="nav-user" id="nav-user" style="display: none;">
-                    <span class="user-name" id="user-name"></span>
-                    <button class="btn-logout" id="logout-btn">Logout</button>
-                </div>
-            </div>
-            <div class="hamburger" id="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
-    </nav>
+   <!-- Place in head: -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;500;400&display=swap" rel="stylesheet">
+
+<style>
+.navbar {
+  background: linear-gradient(90deg, #181a2a 70%, #232542 100%);
+  font-family: 'Montserrat', Arial, sans-serif;
+  padding: 0.8rem 0;
+  box-shadow: 0 2px 20px #1a1c2b44;
+  position: sticky;
+  top: 0; left: 0;
+  z-index: 100;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.7rem;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.logo-img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  box-shadow: 0 2px 16px #5edffe33;
+  object-fit: cover;
+}
+.logo-text {
+  font-size: 1.35rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #5edffe 35%, #418afc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 2px;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.nav-link {
+  color: #eaf6ff;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 1.09rem;
+  letter-spacing: 1px;
+  transition: color 0.17s;
+  position: relative;
+}
+.nav-link:hover, .nav-link:focus {
+  color: #32e2ff;
+  text-decoration: underline;
+}
+
+.nav-auth, .nav-user {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.btn-login, .btn-register, .btn-logout {
+  padding: 0.37rem 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #5edffe 0%, #418afc 100%);
+  color: #181a2a;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+.btn-login:hover, .btn-register:hover, .btn-logout:hover {
+  background: linear-gradient(90deg, #0956a7 0%, #5edffe 100%);
+  color: #fff;
+}
+
+.user-name {
+  color: #5edffe;
+  font-weight: 500;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  margin-left: 1.6rem;
+}
+.bar {
+  width: 25px;
+  height: 3px;
+  background: #5edffe;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+@media (max-width: 950px) {
+  .nav-container {
+    padding: 0 1rem;
+  }
+  .nav-menu {
+    gap: 1rem;
+  }
+  .logo-text {
+    font-size: 1.15rem;
+  }
+}
+@media (max-width: 700px) {
+  .nav-menu {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    background: #232542eb;
+    flex-direction: column;
+    width: 100vw;
+    gap: 1.5rem;
+    align-items: flex-start;
+    padding: 1.8rem 2rem 1rem 2rem;
+    box-shadow: 0 4px 32px #418afc22;
+    display: none;
+  }
+  .nav-menu.active {
+    display: flex;
+  }
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* Add JS to handle hamburger menu toggle for mobile */
+</style>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-logo">
+      <img src="assets/img/udbhav-logo2.jpg" alt="UDBHAV Logo" class="logo-img">
+      <span class="logo-text">UDBHAV-2.0</span>
+    </div>
+    <div class="nav-menu" id="nav-menu">
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#rewards" class="nav-link">Rewards</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#contact" class="nav-link">Contact</a>
+      <div class="nav-auth" id="nav-auth">
+        <button class="btn-login" id="login-btn">Login</button>
+        <button class="btn-register" id="register-btn">Register</button>
+      </div>
+      <div class="nav-user" id="nav-user" style="display: none;">
+        <span class="user-name" id="user-name"></span>
+        <button class="btn-logout" id="logout-btn">Logout</button>
+      </div>
+    </div>
+    <div class="hamburger" id="hamburger">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+  </div>
+</nav>
+
 
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-banner">
             <img src="assets/img/udbhav-banner2.jpg" alt="UDBHAV-2.0 Banner" class="banner-img">
         </div>
-        <div class="hero-content">
-            <h1 class="hero-title">UDBHAV-2.0</h1>
-            <p class="hero-subtitle">Project Expo by Mysuru Royal Institute of Technology</p>
-            <p class="hero-description">Showcase your innovative projects and compete with the best minds across all domains</p>
-            <div class="hero-buttons">
-                <button class="btn-primary" id="get-started-btn">Register Now</button>
-                <button class="btn-secondary" id="learn-more-btn">Learn More</button>
-            </div>
-        </div>
+      <!-- Place in your <head>: -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;500;400&display=swap" rel="stylesheet">
+
+<style>
+.hero-content {
+  font-family: 'Montserrat', Arial, sans-serif;
+  text-align: center;
+  color: #eaf6ff;
+  padding: 3rem 1.5rem 2rem;
+  max-width: 650px;
+  margin: auto;
+}
+.hero-title {
+  font-weight: 700;
+  font-size: 3.3rem;
+  margin-bottom: 0.7rem;
+  background: linear-gradient(90deg, #5edffe 40%, #418afc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 18px #418afc44;
+}
+.hero-subtitle {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: #32ff98;          /* Changed to a fresh blue-cyan accent */
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 6px #cc135177;
+  display: block;
+  line-height: 1.4;
+}
+
+
+.hero-subtitle .expo-key {
+  color: #63f0b7;
+  font-weight: 700;
+  text-shadow: 0 2px 10px #13e99651;
+  font-size: 1.35em;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, #46d2e3 40%, #68ffae 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-description {
+  font-size: 1.09rem;
+  margin-bottom: 1.7rem;
+  color: #c5eaff;
+  text-shadow: 0 1px 7px #10142944;
+}
+.hero-buttons button {
+  font-weight: 600;
+  font-family: inherit;
+  font-size: 1.09rem;
+  padding: 0.7rem 1.5rem;
+  margin: 0 0.5rem;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #5edffe 0%, #418afc 100%);
+  color: #1a1c2b;
+  box-shadow: 0 2px 12px #418afc66;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+.btn-primary:hover, .btn-secondary:hover {
+  background: linear-gradient(90deg, #0956a7 0%, #5edffe 100%);
+  color: #fff;
+}
+</style>
+
+<div class="hero-content">
+  <h1 class="hero-title">UDBHAV-2.0</h1>
+  <p class="hero-subtitle">
+    <span class="expo-key">Project Expo</span>
+    By Mysuru Royal Institute of Technology
+  </p>
+  <p class="hero-description">Showcase your innovative projects and compete with the best minds across all domains</p>
+  <div class="hero-buttons">
+    <button class="btn-primary" id="get-started-btn">Register Now</button>
+    <button class="btn-secondary" id="learn-more-btn">Learn More</button>
+  </div>
+</div>
+
     </section>
 
     <!-- Rewards Section -->
-    <section id="rewards" class="rewards">
-        <div class="container">
-            <h2 class="section-title">Rewards & Recognition</h2>
-            <div class="rewards-grid">
-                <div class="reward-card">
-                    <div class="reward-icon">
-                        <i class="fas fa-trophy"></i>
-                    </div>
-                    <h3>Winner</h3>
-                    <b><p>Exiting Prizes</p></b>
-                    <p>Certificate & Trophy</p>
+   <!-- Font Awesome for Icons (keep this in your <head>) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;500;400&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    background: #1a1c2b; /* Ensures dark throughout */
+    margin: 0;
+    color: #fff;
+    font-family: 'Montserrat', Arial, sans-serif;
+  }
+  .rewards {
+    padding: 3rem 0 2.5rem;
+    width: 100%;
+    text-align: center;
+  }
+  .section-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 2.2rem;
+    background: linear-gradient(90deg, #5edffe 35%, #418afc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 14px #0956a799;
+    letter-spacing: 2px;
+  }
+  .rewards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+  .reward-card {
+    background: linear-gradient(135deg, #232542 80%, #251a40 100%);
+    color: #fff;
+    padding: 2rem 1rem 1.4rem;
+    border-radius: 16px;
+    width: 235px;
+    min-width: 180px;
+    box-shadow: 0 4px 32px #418afc22;
+    transition: transform 0.18s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .reward-card:hover {
+    transform: translateY(-8px) scale(1.04);
+    box-shadow: 0 8px 40px #418afc88;
+  }
+  .reward-icon {
+    font-size: 2.6rem;
+    margin-bottom: 1rem;
+    color: #5edffe;
+    text-shadow: 0 4px 20px #1c68cf;
+  }
+  .reward-card h3 {
+    font-size: 1.28rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 0.4rem;
+    color: #5edffe;
+  }
+  .reward-card b p,
+  .reward-card b {
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 1.02rem;
+    margin-bottom: 0.6rem;
+  }
+  .reward-card p {
+    color: #c5eaff;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+</style>
+
+<section id="rewards" class="rewards">
+    <div class="container">
+        <h2 class="section-title">Rewards & Recognition</h2>
+        <div class="rewards-grid">
+            <div class="reward-card">
+                <div class="reward-icon">
+                    <i class="fas fa-trophy"></i>
                 </div>
-                <div class="reward-card">
-                    <div class="reward-icon">
-                        <i class="fas fa-medal"></i>
-                    </div>
-                    <h3>Runner-up</h3>
-                    <b><p>Exiting Prizes</p></b>
-                    <p>Certificate & Medal</p>
+                <h3>Winner</h3>
+                <b><p>Exiting Prizes</p></b>
+                <p>Certificate & Trophy</p>
+            </div>
+            <div class="reward-card">
+                <div class="reward-icon">
+                    <i class="fas fa-medal"></i>
                 </div>
-               
-                <div class="reward-card">
-                    <div class="reward-icon">
-                        <i class="fas fa-certificate"></i>
-                    </div>
-                    <h3>Participation</h3>
-                    <b><p>Certificate of Participation</p></b>
-                    <p>Networking Opportunities</p>
+                <h3>Runner-up</h3>
+                <b><p>Exiting Prizes</p></b>
+                <p>Certificate & Medal</p>
+            </div>
+            <div class="reward-card">
+                <div class="reward-icon">
+                    <i class="fas fa-certificate"></i>
                 </div>
+                <h3>Participation</h3>
+                <b><p>Certificate of Participation</p></b>
+                <p>Networking Opportunities</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
-            <h2 class="section-title">About UDBHAV-2.0</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>UDBHAV-2.0 is a prestigious Project Expo organized by Mysuru Royal Institute of Technology, open to all domains and innovative minds. This event provides a platform for students, researchers, and professionals to showcase their groundbreaking projects and compete for recognition and rewards.</p>
-                    <p>Whether you're working on cutting-edge technology, sustainable solutions, or innovative applications, UDBHAV-2.0 welcomes projects from all fields including Engineering, Computer Science, Biotechnology, Management, and more.</p>
-                    <div class="about-features">
-                        <div class="feature">
-                            <i class="fas fa-users"></i>
-                            <span>Open to All Domains</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-lightbulb"></i>
-                            <span>Innovation Focused</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-network-wired"></i>
-                            <span>Networking Opportunities</span>
-                        </div>
-                    </div>
-                </div>
+            <h2 class="section-title">ABOUT UDBHAV-2.0</h2>
+            <style>
+  .about-content {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 3rem 2rem 2.5rem;
+    font-family: 'Montserrat', Arial, sans-serif;
+    color: #dbe9ff;
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .about-text {
+    flex: 2;
+    min-width: 300px;
+  }
+  .about-text p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+    color: #dbe9ff;
+    text-shadow: 0 1px 8px #10142977;
+    font-weight: 400;
+  }
+  .about-features {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .feature {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: linear-gradient(90deg,#092071 75%,#042047 100%);
+    padding: 1.15rem 1.45rem;
+    border-radius: 13px;
+    box-shadow: 0 2px 24px #418afc25;
+    color: #5edffe;
+    font-weight: 600;
+    font-size: 1.075rem;
+    min-width: 220px;
+    transition: background 0.18s, color 0.16s, transform 0.22s;
+  }
+  .feature i {
+    font-size: 2rem;
+    color: #5edffe;
+    text-shadow: 0 2px 12px #418afc88;
+  }
+  .feature:hover {
+    transform: translateY(-4px) scale(1.03);
+    background: linear-gradient(90deg,#1c68cf 60%,#5edffe 100%);
+    color: #111322;
+  }
+  .feature:hover i {
+    color: #111322;
+  }
+  .about-poster {
+    flex: 1.1;
+    min-width: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .about-poster img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 18px;
+    box-shadow: 0 6px 32px #1c68cf44;
+  }
+  @media (max-width: 900px) {
+    .about-content { flex-direction: column; gap: 2rem;}
+    .about-poster {margin-bottom:1.5rem;}
+  }
+</style>
+
+<div class="about-content">
+  <div class="about-text">
+    <p>UDBHAV-2.0 is a prestigious Project Expo organized by Mysuru Royal Institute of Technology, open to all domains and innovative minds. <br> This event provides a platform for students, researchers, and professionals to showcase their groundbreaking projects and compete for recognition and rewards.</p>
+    <p>Whether you're working on cutting-edge technology, sustainable solutions, or innovative applications, UDBHAV-2.0 welcomes projects from all fields including Engineering, Computer Science, Biotechnology, Management, and more.</p>
+    <div class="about-features">
+      <div class="feature">
+        <i class="fas fa-users"></i>
+        <span>Open to All Domains</span>
+      </div>
+      <div class="feature">
+        <i class="fas fa-lightbulb"></i>
+        <span>Innovation Focused</span>
+      </div>
+      <div class="feature">
+        <i class="fas fa-network-wired"></i>
+        <span>Networking Opportunities</span>
+      </div>
+    </div>
+  </div>
                 <div class="about-image">
                     <img src="assets/img/poster.jpg" alt="About UDBHAV">
                 </div>
@@ -118,147 +486,739 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Contact Us</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h4>Address</h4>
-                            <p>Mysuru Royal Institute of Technology<br>Mysuru, Karnataka, India</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h4>Phone</h4>
-                            <p>+91 9876543210</p>
-                            <p>+91 8088757656</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4>Email</h4>
-                            <p>udbhav@mrit.edu.in</p>
-                            <p>tecinfinity2025@gmail.com</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <form id="contact-form">
-                        <div class="form-group">
-                            <input type="text" id="contact-name" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="contact-email" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="contact-message" placeholder="Your Message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn-primary">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Place in your <head>: -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;500;400&display=swap" rel="stylesheet">
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                  
-                    <span>UDBHAV-2.0</span>
-                </div>
-                <div class="footer-links">
-                    <a href="#home">Home</a>
-                    <a href="#rewards">Rewards</a>
-                    <a href="#about">About</a>
-                    <a href="#contact">Contact</a>
-                </div>
-                <div class="footer-social">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 UDBHAV-2.0. All rights reserved. | Mysuru Royal Institute of Technology</p>
-            </div>
-        </div>
-    </footer>
+<style>
+  .contact {
+    padding: 3.2rem 0 2.8rem;
+    background: #181a2a;
+    color: #eaf6ff;
+    font-family: 'Montserrat', Arial, sans-serif;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .section-title {
+    font-size: 2.3rem;
+    font-weight: 700;
+    margin-bottom: 2.3rem;
+    background: linear-gradient(90deg, #5edffe 35%, #418afc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 14px #0956a799;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+  .contact-content {
+    display: flex;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .contact-info {
+    flex: 1;
+    min-width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.7rem;
+  }
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.1rem;
+    background: linear-gradient(90deg, #232542 80%, #05126c 100%);
+    padding: 1.1rem 1.3rem;
+    border-radius: 13px;
+    box-shadow: 0 2px 16px #418afc22;
+    color: #5edffe;
+  }
+  .contact-item i {
+    font-size: 2rem;
+    color: #5edffe;
+    margin-top: 0.2rem;
+    text-shadow: 0 2px 12px #418afc88;
+  }
+  .contact-item h4 {
+    color: #eaf6ff;
+    font-weight: 600;
+    font-size: 1.13rem;
+    margin-bottom: 0.35rem;
+    letter-spacing: 1px;
+  }
+  .contact-item p {
+    color: #c5eaff;
+    font-size: 1.02rem;
+    margin-bottom: 0.33rem;
+    line-height: 1.5;
+  }
+  .contact-form {
+    flex: 1.2;
+    min-width: 280px;
+    background: linear-gradient(120deg, #232542 75%, #05126c 100%);
+    box-shadow: 0 2px 16px #418afc33;
+    border-radius: 16px;
+    padding: 2.3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .form-group {
+    margin-bottom: 1.3rem;
+  }
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    background: #191f36;
+    color: #eaf6ff;
+    border: 1px solid #5edffe55;
+    border-radius: 8px;
+    padding: 0.88rem 1rem;
+    font-size: 1.05rem;
+    font-family: inherit;
+    margin-bottom: 0.2rem;
+    transition: border 0.16s, box-shadow 0.17s;
+  }
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    border-color: #5edffe;
+    outline: none;
+    box-shadow: 0 0 0 2px #418afc33;
+  }
+  .contact-form textarea {
+    resize: vertical;
+  }
+  .contact-form button {
+    font-weight: 600;
+    font-size: 1.15rem;
+    padding: 0.7rem 1.6rem;
+    border: none;
+    border-radius: 7px;
+    background: linear-gradient(90deg, #5edffe 0%, #418afc 100%);
+    color: #1a1c2b;
+    box-shadow: 0 2px 12px #418afc66;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s;
+    margin-top: 0.7rem;
+  }
+  .contact-form button:hover {
+    background: linear-gradient(90deg, #0956a7 0%, #5edffe 100%);
+    color: #fff;
+  }
+  @media (max-width: 900px) {
+    .contact-content {
+      flex-direction: column;
+      gap: 2.3rem;
+    }
+    .contact-form, .contact-info {
+      min-width: unset;
+      width: 100%;
+    }
+  }
+</style>
 
-    <!-- Login Modal -->
-    <div id="login-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="close-login">&times;</span>
-            <h2>Login</h2>
-            <form id="login-form">
-                <div class="form-group">
-                    <input type="email" id="login-email" placeholder="Email" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" id="login-password" placeholder="Password" required>
-                </div>
-                <button type="submit" class="btn-primary">Login</button>
-                <p class="modal-switch">
-                    <a href="#" id="forgot-password-link" style="display: block; margin-bottom: 10px; text-align: center;">Forgot your password?</a>
-                    Don't have an account? <a href="#" id="switch-to-register">Register</a>
-                </p>
-            </form>
+<section id="contact" class="contact">
+  <div class="container">
+    <h2 class="section-title">Contact Us</h2>
+    <div class="contact-content">
+      <div class="contact-info">
+        <div class="contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <div>
+            <h4>Address</h4>
+            <p>Mysuru Royal Institute of Technology<br>Mysuru, Karnataka, India</p>
+          </div>
         </div>
+        <div class="contact-item">
+          <i class="fas fa-phone"></i>
+          <div>
+            <h4>Phone</h4>
+            <p>+91 9876543210</p>
+            <p>+91 8088757656</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <div>
+            <h4>Email</h4>
+            <p>udbhav@mrit.edu.in</p>
+            <p>tecinfinity2025@gmail.com</p>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <form id="contact-form">
+          <div class="form-group">
+            <input type="text" id="contact-name" placeholder="Your Name" required>
+          </div>
+          <div class="form-group">
+            <input type="email" id="contact-email" placeholder="Your Email" required>
+          </div>
+          <div class="form-group">
+            <textarea id="contact-message" placeholder="Your Message" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="btn-primary">Send Message</button>
+        </form>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- Register Modal -->
-    <div id="register-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="close-register">&times;</span>
-            <h2>Register</h2>
-            <form id="register-form">
-                <div class="form-group">
-                    <input type="text" id="register-name" placeholder="Full Name" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" id="register-email" placeholder="Email" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" id="register-password" placeholder="Password" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" id="register-confirm-password" placeholder="Confirm Password" required>
-                </div>
-                <button type="submit" class="btn-primary">Register</button>
-                <p class="modal-switch">Already have an account? <a href="#" id="switch-to-login">Login</a></p>
-            </form>
-        </div>
-    </div>
 
-    <!-- Forgot Password Modal -->
-    <div id="forgot-password-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="close-forgot">&times;</span>
-            <h2>Reset Password</h2>
-            <p>Enter your email address and we'll send you a link to reset your password.</p>
-            <form id="forgot-password-form">
-                <div class="form-group">
-                    <input type="email" id="forgot-email" placeholder="Enter your email" required>
-                </div>
-                <button type="submit" class="btn-primary">Send Reset Link</button>
-            </form>
-            <p class="modal-switch">Remember your password? <a href="#" id="switch-to-login-from-forgot">Login</a></p>
-        </div>
-    </div>
+    <!-- Place in your <head>: -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;500;400&display=swap" rel="stylesheet">
 
-    <!-- Loading Overlay -->
-    <div id="loading-overlay" class="loading-overlay">
-        <div class="loading-spinner"></div>
-        <div class="loading-text" id="loading-text">Loading...</div>
+<style>
+  .footer {
+    background: linear-gradient(90deg, #181a2a 75%, #232542 100%);
+    padding: 2.2rem 0 1rem;
+    color: #b6dfff;
+    font-family: 'Montserrat', Arial, sans-serif;
+    box-shadow: 0 -2px 32px #0d121d66;
+  }
+  .footer .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.5rem;
+    margin-bottom: 1.3rem;
+  }
+  .footer-logo span {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: #5edffe;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 14px #0956a799;
+    background: linear-gradient(90deg, #5edffe 25%, #418afc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+  .footer-links a {
+    color: #c5eaff;
+    font-weight: 500;
+    font-size: 1.07rem;
+    text-decoration: none;
+    transition: color 0.17s;
+    letter-spacing: 1px;
+  }
+  .footer-links a:hover {
+    color: #5edffe;
+    text-decoration: underline;
+  }
+  .footer-social {
+    display: flex;
+    gap: 1.2rem;
+  }
+  .footer-social a {
+    color: #5edffe;
+    font-size: 1.4rem;
+    transition: color 0.18s, transform 0.18s;
+  }
+  .footer-social a:hover {
+    color: #418afc;
+    transform: scale(1.18);
+  }
+  .footer-bottom {
+    border-top: 1px solid #2e335a;
+    margin-top: 1.3rem;
+    padding-top: 0.8rem;
+    text-align: center;
+    color: #94b6d8;
+    font-size: 0.96rem;
+    letter-spacing: 0.5px;
+  }
+  @media (max-width: 900px) {
+    .footer-content { 
+      flex-direction: column; 
+      align-items: flex-start; 
+      gap: 1.3rem;
+    }
+    .footer-links, .footer-social { 
+      margin-top: 0.2rem;
+    }
+  }
+</style>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <span>UDBHAV-2.0</span>
+      </div>
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#rewards">Rewards</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-social">
+  <a href="#"><i class="fab fa-facebook"></i></a>
+  <a href="#"><i class="fab fa-twitter"></i></a>
+  <a href="https://www.instagram.com/tec_.infinity?igsh=MXBpOGxyc2ZndDFxZQ==" target="_blank" rel="noopener">
+    <i class="fab fa-instagram"></i>
+  </a>
+  <a href="https://www.linkedin.com/search/results/all/?fetchDeterministicClustersOnly=true&heroEntityKey=urn%3Ali%3Aorganization%3A14477262&keywords=mysuru%20royal%20institute%20of%20technology&origin=RICH_QUERY_SUGGESTION&position=0&searchId=a03cb2d5-f71e-470b-86d2-ec64d020304e&sid=~0(&spellCorrectionEnabled=false" target="_blank" rel="noopener">
+    <i class="fab fa-linkedin"></i>
+  </a>
+</div>
+
     </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 UDBHAV-2.0. All rights reserved. | Mysuru Royal Institute of Technology</p>
+    </div>
+  </div>
+</footer>
+
+
+   <style>
+  .modal {
+    display: none; /* Show with JS as needed */
+    position: fixed;
+    z-index: 1500;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(14, 17, 36, 0.84);
+    align-items: center; justify-content: center;
+    transition: opacity 0.22s;
+  }
+  .modal-content {
+    background: linear-gradient(120deg, #232542 75%, #05126c 100%);
+    color: #eaf6ff;
+    font-family: 'Montserrat', Arial, sans-serif;
+    margin: auto;
+    padding: 2.2rem 2.3rem 1.2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 38px #1c68cf33;
+    max-width: 340px;
+    width: 92vw;
+    position: relative;
+    text-align: center;
+  }
+  .close {
+    position: absolute;
+    top: 1.1rem;
+    right: 1.3rem;
+    font-size: 2.1rem;
+    color: #5edffe;
+    cursor: pointer;
+    transition: color 0.2s;
+    font-weight: 400;
+  }
+  .close:hover {
+    color: #fff;
+  }
+  .modal-content h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #5edffe 25%, #418afc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.4rem;
+    text-shadow: 0 2px 12px #418afc55;
+  }
+  .form-group {
+    margin-bottom: 1.17rem;
+  }
+  .modal-content input {
+    width: 100%;
+    padding: 0.77rem 0.92rem;
+    border: 1px solid #5edffe55;
+    border-radius: 7px;
+    background: #191f36;
+    color: #eaf6ff;
+    font-size: 1rem;
+    font-family: inherit;
+    margin-bottom: 0.2rem;
+    transition: border 0.15s, box-shadow 0.15s;
+  }
+  .modal-content input:focus {
+    border-color: #5edffe;
+    outline: none;
+    box-shadow: 0 0 0 2px #418afc33;
+  }
+  .modal-content button {
+    font-weight: 600;
+    font-size: 1.08rem;
+    border: none;
+    border-radius: 7px;
+    background: linear-gradient(90deg, #5edffe 0%, #418afc 100%);
+    color: #1a1c2b;
+    box-shadow: 0 2px 12px #418afc66;
+    cursor: pointer;
+    padding: 0.56rem 1.49rem;
+    margin-top: 0.2rem;
+    transition: background 0.18s, color 0.18s;
+    width: 100%;
+  }
+  .modal-content button:hover {
+    background: linear-gradient(90deg, #0956a7 0%, #5edffe 100%);
+    color: #fff;
+  }
+  .modal-switch {
+    margin-top: 1.1rem;
+    color: #a4d5ff;
+    font-size: 0.97rem;
+    text-align: center;
+  }
+  .modal-switch a {
+    color: #5edffe;
+    text-decoration: underline;
+    font-weight: 500;
+    transition: color 0.16s;
+  }
+  .modal-switch a:hover {
+    color: #418afc;
+  }
+  @media (max-width: 500px) {
+    .modal-content { padding: 1.3rem 0.9rem 0.6rem; }
+    .close { top: 0.7rem; right: 0.8rem; font-size: 1.7rem;}
+  }
+</style>
+
+<!-- Login Modal -->
+<div id="login-modal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="close-login">&times;</span>
+    <h2>Login</h2>
+    <form id="login-form">
+      <div class="form-group">
+        <input type="email" id="login-email" placeholder="Email" required>
+      </div>
+      <div class="form-group">
+        <input type="password" id="login-password" placeholder="Password" required>
+      </div>
+      <button type="submit" class="btn-primary">Login</button>
+      <p class="modal-switch">
+        <a href="#" id="forgot-password-link">Forgot your password?</a>
+        Don't have an account? <a href="#" id="switch-to-register">Register</a>
+      </p>
+    </form>
+  </div>
+</div>
+
+
+    <style>
+  .modal {
+    display: none; /* Show with JS as needed */
+    position: fixed;
+    z-index: 1500;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(14, 17, 36, 0.84);
+    align-items: center; justify-content: center;
+    transition: opacity 0.22s;
+  }
+  .modal-content {
+    background: linear-gradient(120deg, #232542 75%, #05126c 100%);
+    color: #eaf6ff;
+    font-family: 'Montserrat', Arial, sans-serif;
+    margin: auto;
+    padding: 2.2rem 2.3rem 1.2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 38px #1c68cf33;
+    max-width: 340px;
+    width: 92vw;
+    position: relative;
+    text-align: center;
+  }
+  .close {
+    position: absolute;
+    top: 1.1rem;
+    right: 1.3rem;
+    font-size: 2.1rem;
+    color: #5edffe;
+    cursor: pointer;
+    transition: color 0.2s;
+    font-weight: 400;
+  }
+  .close:hover {
+    color: #fff;
+  }
+  .modal-content h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #5edffe 25%, #418afc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.4rem;
+    text-shadow: 0 2px 12px #418afc55;
+  }
+  .form-group {
+    margin-bottom: 1.17rem;
+  }
+  .modal-content input {
+    width: 100%;
+    padding: 0.77rem 0.92rem;
+    border: 1px solid #5edffe55;
+    border-radius: 7px;
+    background: #191f36;
+    color: #eaf6ff;
+    font-size: 1rem;
+    font-family: inherit;
+    margin-bottom: 0.2rem;
+    transition: border 0.15s, box-shadow 0.15s;
+  }
+  .modal-content input:focus {
+    border-color: #5edffe;
+    outline: none;
+    box-shadow: 0 0 0 2px #418afc33;
+  }
+  .modal-content button {
+    font-weight: 600;
+    font-size: 1.08rem;
+    border: none;
+    border-radius: 7px;
+    background: linear-gradient(90deg, #5edffe 0%, #418afc 100%);
+    color: #1a1c2b;
+    box-shadow: 0 2px 12px #418afc66;
+    cursor: pointer;
+    padding: 0.56rem 1.49rem;
+    margin-top: 0.2rem;
+    transition: background 0.18s, color 0.18s;
+    width: 100%;
+  }
+  .modal-content button:hover {
+    background: linear-gradient(90deg, #0956a7 0%, #5edffe 100%);
+    color: #fff;
+  }
+  .modal-switch {
+    margin-top: 1.1rem;
+    color: #a4d5ff;
+    font-size: 0.97rem;
+    text-align: center;
+  }
+  .modal-switch a {
+    color: #5edffe;
+    text-decoration: underline;
+    font-weight: 500;
+    transition: color 0.16s;
+  }
+  .modal-switch a:hover {
+    color: #418afc;
+  }
+  @media (max-width: 500px) {
+    .modal-content { padding: 1.3rem 0.9rem 0.6rem; }
+    .close { top: 0.7rem; right: 0.8rem; font-size: 1.7rem;}
+  }
+</style>
+
+<!-- Register Modal -->
+<div id="register-modal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="close-register">&times;</span>
+    <h2>Register</h2>
+    <form id="register-form">
+      <div class="form-group">
+        <input type="text" id="register-name" placeholder="Full Name" required>
+      </div>
+      <div class="form-group">
+        <input type="email" id="register-email" placeholder="Email" required>
+      </div>
+      <div class="form-group">
+        <input type="password" id="register-password" placeholder="Password" required>
+      </div>
+      <div class="form-group">
+        <input type="password" id="register-confirm-password" placeholder="Confirm Password" required>
+      </div>
+      <button type="submit" class="btn-primary">Register</button>
+      <p class="modal-switch">Already have an account? <a href="#" id="switch-to-login">Login</a></p>
+    </form>
+  </div>
+</div>
+
+
+<style>
+  .modal {
+    display: none; /* Show with JS as needed */
+    position: fixed;
+    z-index: 1500;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(14, 17, 36, 0.84);
+    align-items: center; justify-content: center;
+    transition: opacity 0.22s;
+  }
+  .modal-content {
+    background: linear-gradient(120deg, #232542 75%, #05126c 100%);
+    color: #eaf6ff;
+    font-family: 'Montserrat', Arial, sans-serif;
+    margin: auto;
+    padding: 2.2rem 2.3rem 1.2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 38px #1c68cf33;
+    max-width: 340px;
+    width: 92vw;
+    position: relative;
+    text-align: center;
+  }
+  .close {
+    position: absolute;
+    top: 1.1rem;
+    right: 1.3rem;
+    font-size: 2.1rem;
+    color: #5edffe;
+    cursor: pointer;
+    transition: color 0.2s;
+    font-weight: 400;
+  }
+  .close:hover {
+    color: #fff;
+  }
+  .modal-content h2 {
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #5edffe 25%, #418afc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.2rem;
+    text-shadow: 0 2px 12px #418afc55;
+  }
+  .modal-content p {
+    color: #c5eaff;
+    font-size: 1.03rem;
+    margin-bottom: 1.15rem;
+    text-align: center;
+  }
+  .form-group {
+    margin-bottom: 1.17rem;
+  }
+  .modal-content input {
+    width: 100%;
+    padding: 0.77rem 0.92rem;
+    border: 1px solid #5edffe55;
+    border-radius: 7px;
+    background: #191f36;
+    color: #eaf6ff;
+    font-size: 1rem;
+    font-family: inherit;
+    margin-bottom: 0.2rem;
+    transition: border 0.15s, box-shadow 0.15s;
+  }
+  .modal-content input:focus {
+    border-color: #5edffe;
+    outline: none;
+    box-shadow: 0 0 0 2px #418afc33;
+  }
+  .modal-content button {
+    font-weight: 600;
+    font-size: 1.08rem;
+    border: none;
+    border-radius: 7px;
+    background: linear-gradient(90deg, #5edffe 0%, #418afc 100%);
+    color: #1a1c2b;
+    box-shadow: 0 2px 12px #418afc66;
+    cursor: pointer;
+    padding: 0.56rem 1.49rem;
+    margin-top: 0.2rem;
+    transition: background 0.18s, color 0.18s;
+    width: 100%;
+  }
+  .modal-content button:hover {
+    background: linear-gradient(90deg, #0956a7 0%, #5edffe 100%);
+    color: #fff;
+  }
+  .modal-switch {
+    margin-top: 1.1rem;
+    color: #a4d5ff;
+    font-size: 0.97rem;
+    text-align: center;
+  }
+  .modal-switch a {
+    color: #5edffe;
+    text-decoration: underline;
+    font-weight: 500;
+    transition: color 0.16s;
+  }
+  .modal-switch a:hover {
+    color: #418afc;
+  }
+  @media (max-width: 500px) {
+    .modal-content { padding: 1.3rem 0.9rem 0.6rem; }
+    .close { top: 0.7rem; right: 0.8rem; font-size: 1.7rem;}
+  }
+</style>
+
+<!-- Forgot Password Modal -->
+<div id="forgot-password-modal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="close-forgot">&times;</span>
+    <h2>Reset Password</h2>
+    <p>Enter your email address and we'll send you a link to reset your password.</p>
+    <form id="forgot-password-form">
+      <div class="form-group">
+        <input type="email" id="forgot-email" placeholder="Enter your email" required>
+      </div>
+      <button type="submit" class="btn-primary">Send Reset Link</button>
+    </form>
+    <p class="modal-switch">Remember your password? <a href="#" id="switch-to-login-from-forgot">Login</a></p>
+  </div>
+</div>
+
+    
+
+    <style>
+  .loading-overlay {
+    display: none; /* Show with JS: display: flex; */
+    position: fixed;
+    left: 0; top: 0;
+    width: 100vw; height: 100vh;
+    z-index: 2000;
+    background: rgba(14, 17, 36, 0.88);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: opacity 0.23s;
+  }
+  .loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #418afc33;
+    border-top: 6px solid #5edffe;
+    border-radius: 50%;
+    animation: spin 1.2s linear infinite;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0 22px #418afc44;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg);}
+  }
+  .loading-text {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 1.28rem;
+    color: #eaf6ff;
+    background: linear-gradient(90deg, #5edffe 25%, #418afc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-align: center;
+    text-shadow: 0 2px 10px #418afc55;
+  }
+</style>
+
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text" id="loading-text">Loading...</div>
+</div>
+
 
     <!-- Scripts -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>

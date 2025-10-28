@@ -1397,3 +1397,39 @@ section {
   background: linear-gradient(90deg, #667eea 80%, #764ba2 100%);
   opacity: 0.94;
 }
+
+.about-text {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 1.2rem 1.3rem;
+  background: none;
+  display: block;
+}
+
+.about-text p {
+  background: #232542;
+  border-left: 4px solid #5edffe;
+  border-radius: 13px;
+  margin-bottom: 1.3rem;
+  padding: 1rem 1rem 1rem 1.4rem;
+  color: #eaf6ff;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1.07rem;
+  line-height: 1.7;
+  box-shadow: 0 2px 15px #418afc22;
+  font-weight: 400;
+  text-align: left;
+  word-break: break-word;
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 600px) {
+  .about-text {
+    padding: 0.6rem 0.3rem;
+  }
+  .about-text p {
+    padding: 0.8rem 0.5rem 0.8rem 1rem;
+    font-size: 0.97rem;
+    margin-bottom: 1.1rem;
+  }
+}
