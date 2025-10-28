@@ -9,77 +9,460 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <img src="assets/img/udbhav-logo2.jpg" alt="UDBHAV Logo" class="logo-img">
-                <span class="logo-text">UDBHAV-2.0</span>
-            </div>
-            <div class="nav-menu" id="nav-menu">
-                <div class="nav-user" id="nav-user">
-                    <span class="user-name" id="user-name"></span>
-                    <button class="btn-logout" id="logout-btn">Logout</button>
-                </div>
-            </div>
-            <div class="hamburger" id="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
-    </nav>
+   <!-- In your <head>: -->
+<!-- Font Awesome 6 for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;500;400&display=swap" rel="stylesheet">
 
-    <!-- Dashboard Navigation -->
-    <div class="dashboard-nav">
-        <div class="dashboard-nav-content">
-            <a href="#application" class="dashboard-nav-link active" data-page="application">
-                <i class="fas fa-file-alt"></i>
-                <span>Application</span>
-            </a>
-            <a href="#team-details" class="dashboard-nav-link" data-page="team-details">
-                <i class="fas fa-users"></i>
-                <span>Team Details</span>
-            </a>
-            <a href="#status" class="dashboard-nav-link" data-page="status">
-                <i class="fas fa-info-circle"></i>
-                <span>Status</span>
-            </a>
-        </div>
+<style>
+.navbar {
+  position: sticky;
+  top: 0; left: 0;
+  z-index: 100;
+  width: 100vw;
+  padding: 0.55rem 0;
+  background: rgba(18, 27, 44, 0.91);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 20px #1a1c2b33;
+}
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1.2rem;
+}
+.nav-logo {
+  background: linear-gradient(90deg, #232542 80%, #418afc 100%);
+  padding: 0.39rem 1.35rem 0.39rem 0.74rem;
+  border-radius: 32px;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  box-shadow: 0 2px 14px #0c1b3627;
+}
+.logo-img {
+  height: 38px;
+  width: 38px;
+  border-radius: 50%;
+  box-shadow: 0 2px 16px #5edffe55;
+  object-fit: cover;
+  background: #0a1326;
+}
+.logo-text {
+  font-size: 1.15rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #46d2e3 35%, #68ffae 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 2px;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  color: #eaf6ff;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  background: rgba(35, 37, 66, 0.85);
+  border-radius: 13px;
+  padding: 0.46em 1.05em;
+  box-shadow: 0 2px 8px #418afc22;
+  transition: background 0.17s, color 0.16s;
+}
+.nav-link i {
+  font-size: 1.14em;
+  color: #5edffe;
+  transition: color 0.17s;
+}
+.nav-link:hover, .nav-link.active {
+  background: linear-gradient(90deg, #32e2ff 35%, #418afc 100%);
+  color: #181a2a;
+}
+.nav-link:hover i, .nav-link.active i {
+  color: #181a2a;
+}
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 0.68rem;
+  background: linear-gradient(90deg, #232542 88%, #32e2ff 100%);
+  border-radius: 15px;
+  padding: 0.42em 1.1em;
+  box-shadow: 0 2px 14px #31e2ff33;
+  margin-left: 2.5rem;
+}
+.user-name {
+  color: #5edffe;
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.6px;
+  display: flex;
+  align-items: center;
+  gap: 0.24em;
+}
+.btn-logout {
+  padding: 0.34rem 1.05rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #68ffae 0%, #418afc 100%);
+  color: #181a2a;
+  font-family: inherit;
+  font-size: 0.98rem;
+  cursor: pointer;
+  transition: background 0.18s, color 0.14s;
+  box-shadow: 0 2px 10px #418afc33;
+}
+.btn-logout:hover {
+  background: linear-gradient(90deg, #32e2ff 0%, #5edffe 100%);
+  color: #151a2c;
+}
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  margin-left: 1.6rem;
+}
+.bar {
+  width: 23px;
+  height: 3px;
+  background: #68ffae;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* MOBILE: stack logo, links, user info vertically with overlay menu */
+@media (max-width: 800px) {
+  .nav-container {
+    flex-direction: row;
+    padding: 0 0.7rem;
+  }
+  .nav-menu {
+    position: absolute;
+    top: 65px;
+    right: 0;
+    flex-direction: column;
+    background: rgba(35,37,66,0.97);
+    width: 100vw;
+    gap: 1.15rem;
+    align-items: flex-end;
+    padding: 1.6rem 1.5rem 1rem 1.5rem;
+    box-shadow: 0 4px 32px #418afc22;
+    display: none;
+    z-index: 101;
+  }
+  .nav-menu.active {
+    display: flex;
+  }
+  .nav-user {
+    margin-left: 0;
+    margin-top: 1rem;
+    width: 85vw;
+    justify-content: flex-start;
+  }
+  .hamburger {
+    display: flex;
+  }
+}
+</style>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-logo">
+      <img src="assets/img/udbhav-logo2.jpg" alt="UDBHAV Logo" class="logo-img">
+      <span class="logo-text">UDBHAV-2.0</span>
     </div>
+    <div class="nav-menu" id="nav-menu">
+      <a href="#home" class="nav-link"><i class="fas fa-home"></i>Home</a>
+      <a href="#rewards" class="nav-link"><i class="fas fa-trophy"></i>Rewards</a>
+      <a href="#about" class="nav-link"><i class="fas fa-info-circle"></i>About</a>
+      <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i>Contact</a>
+      <div class="nav-user" id="nav-user">
+        <span class="user-name" id="user-name"><i class="fas fa-user-circle"></i> Username</span>
+        <button class="btn-logout" id="logout-btn">Logout</button>
+      </div>
+    </div>
+    <div class="hamburger" id="hamburger">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+  </div>
+</nav>
 
-    <!-- Dashboard Content -->
-    <div class="dashboard">
-        <div class="dashboard-content">
-            <!-- Application Page -->
-            <div id="application-page" class="page active">
-                <h1 class="page-title">Application Process</h1>
 
-                <!-- Pipeline -->
-                <div class="pipeline" id="application-pipeline">
-                    <div class="pipeline-progress" id="pipeline-progress"></div>
-                    <div class="pipeline-step" id="step-1" data-step="1">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <h3>Registration Details</h3>
-                            <p>Fill in your team information</p>
-                        </div>
-                    </div>
-                    <div class="pipeline-step" id="step-2" data-step="2">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <h3>Payment</h3>
-                            <p>Complete payment process</p>
-                        </div>
-                    </div>
-                    <div class="pipeline-step" id="step-3" data-step="3">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <h3>Payment Details</h3>
-                            <p>Submit payment confirmation</p>
-                        </div>
-                    </div>
-                </div>
+    <style>
+.dashboard-nav {
+  background: #181a2a;
+  padding: 1.1rem 0;
+  font-family: 'Montserrat', Arial, sans-serif;
+  box-shadow: 0 2px 12px #23254244;
+  margin-bottom: 2rem;
+}
+.dashboard-nav-content {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.dashboard-nav-link {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6em;
+  padding: 1.05em 0.4em;
+  background: #232542;
+  border-radius: 19px;
+  color: #eaf6ff;
+  font-weight: 600;
+  font-size: 1.07rem;
+  text-decoration: none;
+  box-shadow: 0 4px 18px #418afc22;
+  border: 2px solid transparent;
+  transition: background 0.18s, color 0.18s, border 0.2s, box-shadow 0.2s;
+  margin-bottom: 0;
+}
+.dashboard-nav-link i {
+  font-size: 1.45em;
+  color: #5edffe;
+  margin-bottom: 0.1em;
+  transition: color 0.13s;
+}
+.dashboard-nav-link span {
+  padding-top: 0.2em;
+  transition: color 0.13s;
+}
+
+.dashboard-nav-link.active, .dashboard-nav-link:hover {
+  background: linear-gradient(110deg, #32e2ff 33%, #418afc 100%);
+  color: #181a2a;
+  border: 2.5px solid #32e2ff;
+  box-shadow: 0 8px 24px #32e2ff66;
+}
+.dashboard-nav-link.active i, .dashboard-nav-link:hover i {
+  color: #181a2a;
+}
+.dashboard-nav-link.active span, .dashboard-nav-link:hover span {
+  color: #181a2a;
+}
+
+@media (max-width: 700px) {
+  .dashboard-nav-content {
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 97vw;
+    margin: 0 auto;
+    padding: 0 0.5rem;
+  }
+  .dashboard-nav-link {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 0.9em;
+    padding: 1.08em 0.9em;
+    font-size: 1.04rem;
+    border-radius: 15px;
+  }
+  .dashboard-nav-link i {
+    font-size: 1.65em;
+    min-width: 2em;
+    margin-bottom: 0;
+  }
+}
+</style>
+
+<div class="dashboard-nav">
+  <div class="dashboard-nav-content">
+    <a href="#application" class="dashboard-nav-link active" data-page="application">
+      <i class="fas fa-file-alt"></i>
+      <span>Application</span>
+    </a>
+    <a href="#team-details" class="dashboard-nav-link" data-page="team-details">
+      <i class="fas fa-users"></i>
+      <span>Team Details</span>
+    </a>
+    <a href="#status" class="dashboard-nav-link" data-page="status">
+      <i class="fas fa-info-circle"></i>
+      <span>Status</span>
+    </a>
+  </div>
+</div>
+
+
+    <style>
+body {
+  margin: 0; /* For true full width */
+}
+.dashboard-content {
+  background: #191f36;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 1.6rem 0 2rem 0;
+  max-width: none;
+  margin: 0;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+
+.page-title {
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin-bottom: 2.2rem;
+  background: linear-gradient(90deg, #5edffe 25%, #418afc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 15px #418afc55;
+}
+
+.pipeline {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 2.5rem 0 3rem 0;
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  box-sizing: border-box;
+  padding: 0 0.5vw;
+}
+.pipeline-connector {
+  position: absolute;
+  top: 52px;
+  left: 7vw;
+  right: 7vw;
+  height: 7px;
+  background: linear-gradient(90deg, #38cfff 20%, #418afc 100%);
+  border-radius: 7px;
+  z-index: 0;
+  opacity: 0.23;
+}
+
+.pipeline-step {
+  position: relative;
+  background: #232542;
+  border-radius: 17px;
+  box-shadow: 0 4px 18px #418afc22;
+  padding: 1.2rem 0.5vw 1.05rem 0.5vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30vw;
+  min-width: 200px;
+  max-width: 33vw;
+  z-index: 2;
+  margin: 0;
+  transition: box-shadow 0.19s, transform 0.13s;
+}
+.pipeline-step:hover {
+  box-shadow: 0 8px 36px #31e2ff55;
+  transform: translateY(-3px) scale(1.03);
+}
+.step-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #32e2ff 60%, #418afc 100%);
+  box-shadow: 0 2px 14px #418afc33;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  font-size: 2.15rem;
+  color: #181a2a;
+  border: 2.5px solid #191f36;
+}
+.step-number {
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: hsl(246, 100%, 96%);
+  margin-bottom: 0.3rem;
+  letter-spacing: 2px;
+}
+.step-content h3 {
+  font-size: 1.14rem;
+  color: #5edffe;
+  font-weight: 600;
+  margin-bottom: 0.28rem;
+  letter-spacing: 0.8px;
+  text-align: center;
+}
+.step-content p {
+  font-size: 0.98rem;
+  color: #c5eaff;
+  text-align: center;
+}
+
+@media (max-width: 950px) {
+  .pipeline-step { width: 31vw; min-width: 160px; max-width: 40vw; }
+  .pipeline-connector { left: 8vw; right: 8vw; }
+}
+@media (max-width: 700px) {
+  .pipeline {
+    flex-direction: column;
+    gap: 1.4rem;
+    align-items: stretch;
+    width: 100vw;
+    max-width: 100vw;
+    padding: 0 3vw;
+    margin-bottom: 2.2rem;
+  }
+  .pipeline-connector { display: none; }
+  .pipeline-step {
+    width: 100%;
+    max-width: 100vw;
+    min-width: unset;
+    margin-bottom: 0;
+    padding-left: 0; padding-right: 0;
+  }
+}
+</style>
+
+<div class="dashboard-content">
+  <div id="application-page" class="page active">
+    <h1 class="page-title">Application Process</h1>
+    <div class="pipeline" id="application-pipeline">
+      <div class="pipeline-connector"></div>
+      <div class="pipeline-step" id="step-1" data-step="1">
+        <div class="step-icon"><i class="fas fa-user-plus"></i></div>
+        <div class="step-number">Step 1</div>
+        <div class="step-content">
+          <h3>Registration Details</h3>
+          <p>Fill in your team information</p>
+        </div>
+      </div>
+      <div class="pipeline-step" id="step-2" data-step="2">
+        <div class="step-icon"><i class="fas fa-credit-card"></i></div>
+        <div class="step-number">Step 2</div>
+        <div class="step-content">
+          <h3>Payment</h3>
+          <p>Complete payment process</p>
+        </div>
+      </div>
+      <div class="pipeline-step" id="step-3" data-step="3">
+        <div class="step-icon"><i class="fas fa-file-invoice"></i></div>
+        <div class="step-number">Step 3</div>
+        <div class="step-content">
+          <h3>Payment Details</h3>
+          <p>Submit payment confirmation</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
                 <!-- Registration Form -->
                 <div class="form-section" id="registration-form">
@@ -261,13 +644,21 @@
 
                 <!-- Help Desk -->
                 <div class="help-desk">
-                    <h3>Help Desk</h3>
-                    <p>If you have any questions or need assistance, please contact us:</p>
-                    <p><strong>Email:</strong> <a href="tecinfinity2025@gmail.com">tecinfinity2025@gmail.com</a></p>
-                    <p><strong>Phone:</strong> <a href="tel:+919876543210">+91 8088757656</a></p>
-                    <p><strong>Phone:</strong> <a href="tel:+919353240289">+91 9353240289</a></p>
-                    <p><strong>WhatsApp:</strong> <a href="https://wa.me/919876543210">+91 8497071739</a></p>
-                </div>
+  <h3>Help Desk</h3>
+  <p>If you have any questions or need assistance, please contact us:</p>
+  <p class="email"><i class="fas fa-envelope"></i><strong>Email:</strong> <a href="mailto:tecinfinity2025@gmail.com">tecinfinity2025@gmail.com</a></p>
+  <p class="phone"><i class="fas fa-phone-alt"></i><strong>Phone:</strong> <a href="tel:+9198088757656">+91 8088757656</a></p>
+  <p class="phone"><i class="fas fa-phone-alt"></i><strong>Phone:</strong> <a href="tel:+919353240289">+91 9353240289</a></p>
+  <p class="whatsapp"><i class="fab fa-whatsapp"></i><strong>WhatsApp:</strong> <a href="https://wa.me/9198497071739">+91 8497071739</a></p>
+  <div class="help-desk-footer">
+ <i> designed and developed by </i>
+  <a href="https://www.instagram.com/tec_.infinity?igsh=MXBpOGxyc2ZndDFxZQ==" target="_blank" class="footer-link">
+    TECINFINITY
+  </a>
+</div>
+
+</div>
+
             </div>
         </div>
     </div>

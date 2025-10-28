@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
 function initializeDashboard() {
     // Setup navigation
     const navLinks = document.querySelectorAll('.dashboard-nav-link');
