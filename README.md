@@ -6,17 +6,47 @@ UDBHAV-2.0 is a modern expo platform developed for MRIT, designed to make projec
 https://mrit-udbhav-2025.netlify.app/
 
 ## Features
-- **Simple Project Submission:** Upload and manage project entries via integrated Google Forms.
-- **Live Updates:** Automated site deployment using GitHub and Netlify, ensuring your changes go live instantly.
-- **Participant Management:** Easy registration and payment process, with clear eligibility instructions.
-- **Modern UI:** Futuristic dark theme with glowing neon blue/cyan accents.
-- **Responsive Info Pages:** Personal and project info with QR integration; supports high-quality poster uploads.
+
+### User
+- Responsive homepage: Rewards, About, and Contact
+- Secure authentication: Email/password login & registration
+- Guided 3-step application: Registration, Payment, and Confirmation
+- Personal dashboards: Application status & team management
+- Real-time updates and notifications
+
+### Admin
+- Application overview and verification
+- Accept/reject applications with email alerts
+- Search, filter, and view statistics
 
 ## Tech Stack
-Frontend: React.js, HTML, CSS, Tailwind  
-Backend: Node.js, Express.js, Flask  
-Database: SQL  
-Deployment: Netlify + GitHub
 
-## Contributing
-Pull requests and suggestions are welcome!
+- **Frontend:** HTML5, CSS3, JavaScript (ES6+)
+- **Backend:** Firebase (Auth, Firestore, Storage)
+- **Email:** SMTP/EmailJS integration
+- **Deployment:** Netlify
+- **Design:** Mobile-first responsive layout
+
+## Admin Role
+
+- Register as a user, then set the `role` field to `"admin"` in Firestore.
+
+## Email Notifications
+
+- Use EmailJS for static sites, or set up Firebase Functions with Nodemailer for dynamic needs.
+
+## Security
+
+- Role-based Firestore rules
+- Client-side and server-side validation
+- Secure file uploads
+
+## Support
+
+- Email: madanmadany2004@gmail.com 
+- Phone: +91 9353240289
+
+---
+
+*UDBHAV-2.0 — Fueling student innovation!*
+
